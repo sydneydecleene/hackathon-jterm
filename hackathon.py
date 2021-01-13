@@ -9,7 +9,7 @@ import pygal
 from pygal.style import Style
 
 #import data
-tsv_file = open("outbreakinfo_epidemiology_data_2021-01-12.tsv")
+tsv_file = open("outbreakinfo_epidemiology_data_2021-01-13.tsv")
 data = pd.read_csv(tsv_file, delimiter="\t")
 
 
@@ -22,7 +22,7 @@ code = {}
 from pycountry_convert import  country_name_to_country_alpha2
 for i in range(len(data.name)):
     try:
-        code[i] = country_name_to_country_alpha2(col[i])
+        code[i] = country_name_to_country_alpha2(col[i]).lower()
     except:  "Invalid Country Name: "
 # adding the countries 
 low_1 = {}
@@ -76,9 +76,9 @@ worldmap.add('h4',high_4)
 worldmap.add('h5',high_5)
 worldmap.add('h6',high_6)
 
-
+'''
 for i in range(len(data._id)):
     worldmap.add(data.name[i], [(data.location_id[i][:2].lower(),data.confirmed_rolling_14days_ago_diff[i])])
-
+'''
 # save into the file 
 worldmap.render_to_file('abc.svg') 
