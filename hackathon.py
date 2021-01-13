@@ -81,4 +81,4 @@ for i in range(len(data._id)):
     worldmap.add(data.name[i], [(data.location_id[i][:2].lower(),data.confirmed_rolling_14days_ago_diff[i])])
 '''
 # save into the file 
-worldmap.render_to_file('other.svg') 
+worldmap.render_to_file('abc.svg') 
