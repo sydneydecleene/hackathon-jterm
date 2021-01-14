@@ -9,14 +9,16 @@ import pygal
 from pygal.style import Style
 
 #import data
-tsv_file = open("outbreakinfo_epidemiology_data_2021-01-13.tsv")
+#file = input('Enter cases data file to visualize: ')
+file = 'outbreakinfo_epidemiology_data_2021-01-13.tsv'
+tsv_file = open(file)
 data = pd.read_csv(tsv_file, delimiter="\t")
 
 
 # creating map
-custom_style = Style(opacity='1', colors=('#75ABD0', '#ABD6E7', '#DCF1EC','#FAF8C1','#FEDD90','#FCAC64','#F16E43','#D4322C','#A50026'))
-worldmap =  pygal.maps.world.World(style=custom_style)
-worldmap.title = 'Countries'
+custom_style = Style(colors=('#75ABD0', '#ABD6E7', '#DCF1EC','#FAF8C1','#FEDD90','#FCAC64','#F16E43','#D4322C','#A50026'))
+worldmap =  pygal.maps.world.World(style=custom_style,show_legend=False)
+worldmap.title = '2 week change in cases/day'
 col = data.name
 code = {}
 from pycountry_convert import  country_name_to_country_alpha2
@@ -65,7 +67,6 @@ for i in range(len(code)):
     else:
         high_6[code[i]] = data.confirmed_rolling_14days_ago_diff[i]
 
-
 worldmap.add('1',low_1)
 worldmap.add('2',low_2)
 worldmap.add('3',low_3)
@@ -76,9 +77,6 @@ worldmap.add('h4',high_4)
 worldmap.add('h5',high_5)
 worldmap.add('h6',high_6)
 
-'''
-for i in range(len(data._id)):
-    worldmap.add(data.name[i], [(data.location_id[i][:2].lower(),data.confirmed_rolling_14days_ago_diff[i])])
-'''
 # save into the file 
 worldmap.render_to_file('abc.svg') 
+
